@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--purple: #4D277E;
+	--white: #FFFFFF;
+	--black: #000000;
+	--light-gray: #EDF2F4;
+	--dark-gray: #8D99AE;
+}  
+
+body {
+	font-family: 'Poppins', sans-serif;
+}
+.nav {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	align-items: center;
+	background: linear-gradient(to top, var(--light-gray), var(--dark-gray));
+	justify-content:flex-start;
+	padding: 2rem;
+}
+
+.tittle {
+	padding: 20px;
+}
+
+.logoNav img {
+	width: 100px;
+}
+
+.name_company {
+	color: var(--purple);
+}

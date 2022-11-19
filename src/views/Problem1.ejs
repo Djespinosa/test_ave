@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/problem1.css">
+        <title>Problema 1</title>
+    </head>
+</head>
+<body>
+    <%- include('./partials/header') %>
+    <div class='container'>
+        <h2>Problema 1</h2>
+            <div class="valor"><p>ingrese primer valor: <input type="number" name="valor1" id="valor1" onkeyup="multiply()"></p></div>
+            <div class="valor"><p>Ingrese segundo valor: <input type="number" name="valor2" id="valor2"onkeyup="multiply()"></p></div>
+            <p>El resultado es:</p>
+            <h4 id="resultado"></h4>
+    </div>
+</body>
+<script>
+    function multiply() {    
+        let v1 = parseInt(document.getElementById('valor1').value);
+        let v2 = parseInt(document.getElementById('valor2').value);
+        
+        let result = 0;
+        while (v2 > 0) {
+            result += v1 
+            v2--
+        }
+        document.getElementById('resultado').innerHTML = result
+            target.valor1.value = ''
+            target.valor2.value = ''      
+        }
+</script>
+</html>

@@ -1,0 +1,27 @@
+.container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.valor{
+	width: 100%;
+}
+
+h2 {
+	width: 100%;
+	margin: 20px;
+	color: var(--purple);
+}
+
+p {
+	padding: 10px;
+	margin: 0 10px;
+}
+input {
+	width: 80px;
+}
+
+h4{
+	width: 100%;
+	margin:	0 20px
+}
