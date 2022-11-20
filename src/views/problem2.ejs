@@ -6,11 +6,337 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/22b1cec598.js" crossorigin="anonymous"></script>   
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/problem1.css">
+    <link rel="stylesheet" href="/css/problem2.css">
     <title>Problema 2</title>
 </head>
 <body>
     <%- include('./partials/header') %>
+    <div class="card-register">               
+        <form action="" id="form" class="form">            
+            <div class="form__group" id="user__group">
+                <label for="user" class="form__label"></label>
+                <div class="form__group-input-user" >                        
+                    <input type="text" class="form__input" name="user" id="user" placeholder="Nombre de usuario"/>
+                </div>
+            </div>
+            
+            
+            <div class="form__group" id="password__group">
+                <label for="password"></label>
+                <div class="form__group-input-password" >                        
+                    <input type="text" class="form__input" name="password" id="password" placeholder="Contraseña" autocomplete="off"/>                    
+                </div>
+                <div class="form__group-input" id="form__group-input">
+                    <p class="form__input-error">Debe tener al menos 16 caracteres</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input2">
+                    <p class="form__input-error">Debe tener letras minúsculas y mayúsculas</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input3">
+                    <p class="form__input-error" >No puede tener 2 letras iguales consecutivas</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input4">
+                    <p class="form__input-error">Debe contener al menos 4 números</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input5">
+                    <p class="form__input-error">No puede tener 2 números iguales consecutivos</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input6">
+                    <p class="form__input-error">Debe tener al menos 2 caracteres especiales</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input7">
+                    <p class="form__input-error">Los caracteres especiales no pueden repetirse</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input8">
+                    <p class="form__input-error">Los caracteres especiales no pueden estar juntos</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input9">
+                    <p class="form__input-error">No se puede usar el número 0</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+                <div class="form__group-input" id="form__group-input10">
+                    <p class="form__input-error">No se puede colocar espacios</p>
+                    <i class="form__validation-status fa-solid fa-circle-xmark"></i>                
+                </div>
+            </div>          
+            
+            <div class="register-button">
+                <button type="submit">Iniciar sesión</button>
+            </div>  
+        </form>                
+    </div>
+    <script>
+        const form = document.getElementById('form');
+        const inputs = document.querySelectorAll('#form input');
+        
+
+        const validateForm = (e) => {
+            const mayus = function(event){
+                let letters_mayus ="ABCDEFGHYJKLMNÑOPQRSTUVWXYZ";
+                for(i=0; i< event.length; i++){
+                    if (letters_mayus.indexOf(event.charAt(i),0)!=-1){                                                          
+                            return 1;
+                        }
+                    }
+                return 0;
+            }
+            const minus = function(event){
+                let letters_minus ="abcdefghijklmnñopqrstuvwxyz";
+                for(i=0; i< event.length; i++){
+                    if (letters_minus.indexOf(event.charAt(i),0)!=-1){                                                          
+                            return 1;
+                        }
+                    }
+                return 0;
+            }
+
+            const double = function(event){                        
+                for(i=0; i< event.length; i++){                   
+                        if (isNaN(event[i]) && event[i-1] == event[i]){
+                            return 1
+                        }                    
+                }
+                return 0;
+            }
+
+            const fourNum = function(event){                        
+                count = 0              
+                for(i=0; i< event.length; i++){
+                        if (!isNaN(event[i]) && event[i] != ' '){
+                            count++
+                        }               
+                    }
+                if(count>=4){
+                    return 1
+                } else {
+                    return 0
+                }                           
+            }
+
+            const doubleNum = function(event){                        
+                for(i=0; i< event.length; i++){                   
+                        if (!isNaN(event[i]) && event[i-1] == event[i]){
+                            return 1
+                        }                    
+                }
+                return 0;
+            }
+
+            const specials = function(event){
+                let letters_specials ="(!@#$%ˆ&*-_+=?)";
+                count = 0;
+                for(i=0; i< event.length; i++){
+                    if (letters_specials.indexOf(event.charAt(i),0)!=-1){                                                          
+                            count++
+                        }
+                    }
+                if(count>=2){
+                    return 1
+                } else{
+                    return 0;
+                }
+            }
+
+            const repeatSpecials = function(event){
+                let letters_specials ="(!@#$%ˆ&*-_+=?/)";
+                arraySpecials = [].sort();
+                for(i=0; i< event.length; i++){
+                    indexSpecials = letters_specials.indexOf(event.charAt(i),0)
+                    if (indexSpecials != -1){
+                        arraySpecials.push(letters_specials[indexSpecials])                           
+                    }                        
+                }
+                orderArray = arraySpecials.sort()
+                count = 0
+                for(j=0; j < orderArray.length; j++){
+                    if(orderArray[j+1] === orderArray[j]){
+                        count++
+                    }
+                }
+                console.log(count);
+                if (count >= 1){
+                    return 1
+                } else {
+                    return 0;
+                }              
+            }
+
+            const doubleSpecials = function(event){
+                let letters_specials ="(!@#$%ˆ&*-_+=?/)";
+                for(i=0; i< event.length; i++){
+                    indexSpecials = letters_specials.indexOf(event.charAt(i),0)
+                    indexSpecials2 = letters_specials.indexOf(event.charAt(i-1),0)
+                    if (indexSpecials != -1 && indexSpecials2 !=-1){
+                        return 1                           
+                        }
+                }                
+                return 0;
+            }
+
+            const numCero = function(event){                        
+                for(i=0; i< event.length; i++){                   
+                        if (event[i] == '0' ){
+                            return 1
+                        }                    
+                }
+                return 0;
+            }
+
+            const space = function(event){                        
+                for(i=0; i< event.length; i++){                   
+                        if (event[i] == ' ' ){
+                            return 1
+                        }                    
+                }
+                return 0;
+            }
+
+            switch (e.target.name){
+                case 'password':
+                    
+                    if ((e.target.value).length >= 16 ){
+                        document.getElementById('form__group-input').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input i').classList.remove('fa-circle-xmark');
+
+                    } else {
+                        document.getElementById('form__group-input').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input i').classList.remove('fa-circle-check');
+                    }                    
+                    
+                    if (mayus(e.target.value) == 1 && minus(e.target.value) == 1 ){
+                        document.getElementById('form__group-input2').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input2').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input2 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input2 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input2').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input2').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input2 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input2 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (double(e.target.value) == 0 ){
+                        document.getElementById('form__group-input3').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input3').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input3 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input3 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input3').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input3').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input3 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input3 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (fourNum(e.target.value) == 1 ){
+                        document.getElementById('form__group-input4').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input4').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input4 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input4 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input4').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input4').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input4 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input4 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (doubleNum(e.target.value) == 0 ){
+                        document.getElementById('form__group-input5').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input5').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input5 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input5 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input5').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input5').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input5 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input5 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (specials(e.target.value) == 1 ){
+                        document.getElementById('form__group-input6').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input6').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input6 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input6 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input6').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input6').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input6 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input6 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (repeatSpecials(e.target.value) == 0){
+                        document.getElementById('form__group-input7').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input7').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input7 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input7 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input7').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input7').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input7 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input7 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (doubleSpecials(e.target.value) == 0 ){
+                        document.getElementById('form__group-input8').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input8').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input8 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input8 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input8').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input8').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input8 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input8 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (numCero(e.target.value) == 0 ){
+                        document.getElementById('form__group-input9').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input9').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input9 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input9 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input9').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input9').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input9 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input9 i').classList.remove('fa-circle-check');
+                    }
+
+                    if (space(e.target.value) == 0 ){
+                        document.getElementById('form__group-input10').classList.remove('form__group-input-incorrect');
+                        document.getElementById('form__group-input10').classList.add('form__group-input-correct');
+                        document.querySelector('#form__group-input10 i').classList.add('fa-circle-check');
+                        document.querySelector('#form__group-input10 i').classList.remove('fa-circle-xmark');
+                    } else {
+                        document.getElementById('form__group-input10').classList.add('form__group-input-incorrect');
+                        document.getElementById('form__group-input10').classList.remove('form__group-input-correct');
+                        document.querySelector('#form__group-input10 i').classList.add('fa-circle-xmark');
+                        document.querySelector('#form__group-input10 i').classList.remove('fa-circle-check');
+                    }
+                break;
+            }
+
+        }
+
+        inputs.forEach((input) => {
+            input.addEventListener('keyup', validateForm);
+            input.addEventListener('blur', validateForm);
+        })
+
+        form.addEventListener('submit', (e)=>{
+            e.defaultPrevented();
+        })
+    </script>
 </body>
 </html>
