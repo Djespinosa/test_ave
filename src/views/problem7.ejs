@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/22b1cec598.js" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/problem7.css">
+    <title>Problema 7</title>
+</head>
+<body>
+    <%- include('./partials/header') %>
+    <div class='container'>
+        <h2>Problema 7</h2>
+            <div class="container__form">
+                <form action="#" onsubmit="validateForm()" id = "form__tasks" class="form__inputs">
+                    <label for="name_task">Nombre de la tarea</label>
+                    <input type="text" name="name_task" id="name_task" class="form_inputs-task">
+                    
+                    <label for="date">Fecha</label>
+                    <input type="date" name="date" id="date" class="form_inputs-date">
+                    
+                    <label for="priority">Prioridad</label>
+                    <input type="text" name="priority" id="priority" class="form_inputs-priority">
+                    
+                    <label for="description">Descripción</label>
+                    <input type="text" name="description" id="description" class="form_inputs-description">
+                    <br>
+                    <input type="submit" value="Agregar" id="btnAgregar" class="form_inputs-submit"> 
+                </form>              
+            </div>
+
+            <div class="container__table">
+                <table class="table__tasks">
+                    <thead class="table__tasks-head">
+                        <tr>
+                            <th>ID</th>
+                            <th>NOMBRE DE LA TAREA</th>
+                            <th>FECHA</th>
+                            <th>PRIORIDAD</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="ID" class="td__id">                       
+                            </td>
+                            <td data-label="NOMBRE DE LA TAREA" class="td__nameTask">                                
+                            </td>
+                            <td data-label="FECHA" class="td__date">                                
+                            </td>
+                            <td data-label="PRIORIDAD" class="td__priority">                                
+                            </td>
+                            <td data-label="DESCRIPCIÓN" class="td__description">                                
+                            </td>
+                            <td data-label="ACCIONES" class="td__actions">                                
+                            </td>     
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+    </div>
+    <script>
+        
+        let listTask = [];
+        
+        const tasks = {
+            id: '',
+            task: '',
+            date: '',
+            prority: '',
+            description: ''
+        };
+
+        let editing = 0;
+
+        const form = document.querySelector('#form__tasks');
+        const taskInput = document.querySelector('#name_task');
+        const dateInput = document.querySelector('#date');
+        const priorityInput = document.querySelector('#priority');
+        const descriptionInput = document.querySelector('#description');
+        const btnAgregar = document.querySelector('#btnAgregar');
+
+        validateForm= () => {
+            event.preventDefault();
+            if(taskInput.value === '' || dateInput === '' || priorityInput === '' || descriptionInput === ''){
+                alert('Todos los campos son obligatorios');
+                return;
+            }
+
+            if(editing){
+                // editingtask()
+                editing = false;                
+            } else {
+                tasks.id = Date.now();
+                tasks.task = taskInput.value;
+                tasks.date = dateInput.value;
+                tasks.prority = priorityInput.value;
+                tasks.description = descriptionInput.value
+
+                addTask();
+            }
+        }
+
+        addTask = () =>{
+            listTask.push({...tasks});
+
+            displayTask()
+        }
+
+        displayTask = () => {
+
+            clearHTML();
+            
+            const tdId = document.querySelector('.td__id');
+            const tdTask = document.querySelector('.td__nameTask');
+            const tdDate = document.querySelector('.td__date');
+            const tdPriority = document.querySelector('.td__priority');
+            const tdDescription = document.querySelector('.td__description');
+            const tdActions = document.querySelector('.td__actions');
+
+            listTask.forEach( element => {
+                const {id, task, date, prority, description} = element;
+
+                const idTable = document.createElement('td');
+                idTable.textContent = `${id}`;
+                idTable.dataset.id = id;
+
+                const taskTable = document.createElement('td');
+                taskTable.textContent = `${task}`;
+                taskTable.dataset.id = id;
+
+                const dateTable = document.createElement('td');
+                dateTable.textContent = `${date}`;
+                dateTable.dataset.id = id;
+
+                const priorityTable = document.createElement('td');
+                priorityTable.textContent = `${prority}`;
+                priorityTable.dataset.id = id;
+
+                const descriptionTable = document.createElement('td');
+                descriptionTable.textContent = `${description}`;
+                descriptionTable.dataset.id = id;
+
+                const actionTable = document.createElement('td');
+                actionTable.textContent = '';
+                actionTable.dataset.id = id;
+
+                const editButton = document.createElement('button');
+                // editButton.onclick = () => loadTask(element);
+                editButton.textContent = 'Editar'
+                editButton.classList.add('btn', 'btn-edit');
+                actionTable.append(editButton);
+
+                const deleteButton = document.createElement('button');
+                // deleteButton.onclick = () => deleteTask(id);
+                deleteButton.textContent = 'Elminar'
+                deleteButton.classList.add('btn', 'btn-delete');
+                actionTable.append(deleteButton);
+
+                tdId.appendChild(idTable);
+                tdTask.appendChild(taskTable)
+                tdDate.appendChild(dateTable)
+                tdPriority.appendChild(priorityTable)
+                tdDescription.appendChild(descriptionTable)
+                tdActions.appendChild(actionTable)
+            })
+        }
+
+        clearHTML = () => {
+            const clearId = document.querySelector('.td__id');
+            while(clearId.firstChild){
+                clearId.removeChild(clearId.firstChild);
+            }
+
+            const clearTask = document.querySelector('.td__nameTask');
+            while(clearTask.firstChild){
+                clearTask.removeChild(clearTask.firstChild);
+            }
+
+            const clearDate = document.querySelector('.td__date');
+            while(clearDate.firstChild){
+                clearDate.removeChild(clearDate.firstChild);
+            }
+
+            const clearPriority = document.querySelector('.td__priority');
+            while(clearPriority.firstChild){
+                clearPriority.removeChild(clearPriority.firstChild);
+            }
+
+            const clearDescription = document.querySelector('.td__description');
+            while(clearDescription.firstChild){
+                clearDescription.removeChild(clearDescription.firstChild);
+            }
+
+            const clearActions = document.querySelector('.td__actions');
+            while(clearActions.firstChild){
+                clearActions.removeChild(clearActions.firstChild);
+            }
+
+
+        }
+
+    </script>
+</body>
+</html>

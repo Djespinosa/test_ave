@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/22b1cec598.js" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/problem4.css">
+    <title>Problema 4</title>
+</head>
+<body>
+    <%- include('./partials/header') %>
+    <div class='container'>
+        <h2>Problema 4</h2>
+            <div class="container_form">
+                <form action="#"  onsubmit="convertNums()" method="get" class="form__inputs">
+                    <label for="nums__input">ingrese números separados por coma y sin espacios:</label>
+                    <input type="text" name="nums__input" id="nums__input" class="form_inputs-input">
+                    <input type="submit" value="Calcular" class="form_inputs-submit"> 
+                </form>              
+            </div>
+            <div class="container__results">
+                <div>
+                    <p>Cantidad de números:</p>
+                    <h4 id="result"></h4>
+                </div>
+                <div>
+                    <p>Porcentaje de números pares:</p>
+                    <h4 id="result2"></h4>
+                </div>
+                <div>
+                    <p>Porcentaje de números impares:</p>
+                    <h4 id="result3"></h4>
+                </div>
+                <div>
+                    <p>Porcentaje de números mayores a 1000:</p>
+                    <h4 id="result4"></h4>
+                </div>
+                <div>
+                    <p>Mayor valor:</p>
+                    <h4 id="result5"></h4>
+                </div>
+                <div>
+                    <p>Menor valor:</p>
+                    <h4 id="result6"></h4>
+                </div>
+                <div>
+                    <p>Porcentaje del número mínimo:</p>
+                    <h4 id="result7"></h4>
+                </div>
+                <div>
+                    <p>Porcentaje del promedio de todos los numeros:</p>
+                    <h4 id="result8"></h4>
+                </div>
+            </div>
+    </div>
+    <script>
+        convertNums = () => {
+
+        //Convertir dato recibido por input a numero 
+        event.preventDefault()  
+        let arrayInput = []; 
+        let dates = document.getElementById('nums__input').value;
+        arrayInput.push(dates)
+        arrayStrings = arrayInput[0].split(',')
+        let arrayNums = arrayStrings.map(function(string) {
+            return Number(string);
+        })
+
+        // Contar numeros ingresados y mostrar en pantalla
+
+        let arrayCount = arrayNums.length
+        document.getElementById('result').innerHTML = arrayCount       
+        
+        // Verificar numeros pares, calcular su porcentaje y mostrar en pantalla
+
+        const numOdd = arrayNums.filter(function(element){return element % 2 == 0})        
+        const percentageOdd = ((numOdd.length/arrayCount)*100).toFixed(2)
+        document.getElementById('result2').innerHTML = (percentageOdd + '%')
+
+        // Verificar numeros impares, calcular su porcentaje y mostrar en pantalla
+        
+        const numEven = arrayNums.filter(function(element){return element % 2 != 0})        
+        const percentageEven = ((numEven.length/arrayCount)*100).toFixed(2)
+        document.getElementById('result3').innerHTML = (percentageEven + '%')
+
+        // Verificar numeros mayores a mil(1000), calcular su porcentaje y mostrar en pantalla
+        
+        const numGreaterThousand = arrayNums.filter(function(element){return element > 1000})        
+        const percentageThousand = ((numGreaterThousand.length/arrayCount)*100).toFixed(2)
+        document.getElementById('result4').innerHTML = (percentageThousand + '%')
+
+        // Verificar numero mayor y mostrar en pantalla
+
+        const maxValue = Math.max(...arrayNums)
+        document.getElementById('result5').innerHTML = maxValue
+
+        // Verificar numero mayor y mostrar en pantalla
+
+        const minValue = Math.min(...arrayNums)
+        document.getElementById('result6').innerHTML = minValue
+
+        // Verificar porcentaje del minimo valor respecto al maximo valor y mostrar en pantalla
+
+        const percentageMinValue = ((minValue * 100)/maxValue).toFixed(2)
+        document.getElementById('result7').innerHTML = (percentageMinValue + '%')
+
+        // Verificar porcentaje del promedio de todos los numeros y mostrar en pantalla
+
+        const sumNums = arrayNums.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
+        console.log(sumNums)
+        const AverageNums = (sumNums/(arrayNums.length))
+        const percentageAverage = ((AverageNums * 100)/maxValue).toFixed(2) 
+        document.getElementById('result8').innerHTML = (percentageAverage + '%')
+
+        }
+
+        
+    
+    </script>
+</body>
+</html>

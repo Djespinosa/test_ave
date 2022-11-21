@@ -1,0 +1,73 @@
+*{
+    box-sizing: border-box;
+}
+
+.container__form {
+    display: flex;
+    justify-content: center;
+}
+
+.form__inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    margin: 20px 30px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: -2px -2px 2px 2px rgba(255, 255, 255, 0.5), 4px 4px 4px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    place-items: center;
+}
+
+label, input {
+    margin-top: 10px;
+    height: 30px;
+    width: 300px;
+}
+
+label {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.form_inputs-task {
+    height: 60px;
+}
+
+.form_inputs-task {
+    height: 60px;
+}
+
+.form_inputs{
+    height: 60px;
+}
+
+.form_inputs-submit{
+    margin: 5px;
+    background-color:var(--purple);
+    color: var(--white);    
+    border-radius: 20px;
+    padding: 5px 20px;
+    border: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    box-shadow: -2px -2px 1px 2px rgba(255, 255, 255, 0.5), 2px 2px 2px 1px rgba(0, 0, 0, 0.2); 
+    width: 150px;
+}
+
+.container__table {
+    margin: 10px 20px;
+    box-shadow: -2px -2px 1px 2px rgba(255, 255, 255, 0.5), 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+.table__tasks {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;    
+}
+
+.table__tasks-head th,td,tr {
+    border: 1px solid var(--purple);
+    text-align: center;
+    padding: 5px;
+}
