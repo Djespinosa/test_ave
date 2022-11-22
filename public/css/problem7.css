@@ -42,7 +42,7 @@ label {
     height: 60px;
 }
 
-.form_inputs-submit{
+.btnAdd{
     margin: 5px;
     background-color:var(--purple);
     color: var(--white);    
