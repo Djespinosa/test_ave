@@ -16,7 +16,7 @@
     <div class='container'>
         <h2>Problema 7</h2>
             <div class="container__form">
-                <form action="" id ="form__tasks" class="form__inputs">
+                <form action="/problem7" method="POST" id ="form__tasks" class="form__inputs">
                     <label for="name_task">Nombre de la tarea</label>
                     <input type="text" name="name_task" id="name_task" class="form_inputs-task">
                     
@@ -45,143 +45,67 @@
                             <th scope="col">ACCIONES</th>
                         </tr>
                     </thead>
-                    <tbody id="items"></tbody>
+                    <tbody id="items">
+                        <% for(let i=0; i < tasks.length; i++) { %>
+                        <form method="POST" action="/problem7/delete/<%= tasks[i].id %>?_method=DELETE" id="template__tasks">
+                            <tr>
+                                <td data-label="ID">
+                                    <%= tasks[i].id %>
+                                </td>
+                                <td data-label="NOMBRE DE LA TAREA">
+                                    <%= tasks[i].name_task %>
+                                </td>
+                                <td data-label="FECHA">
+                                    <%= tasks[i].date %>
+                                </td>
+                                <td data-label="PRIORIDAD">
+                                    <%= tasks[i].priority %>
+                                </td>
+                                <td data-label="DESCRIPCIÓN">
+                                    <%= tasks[i].description %>
+                                </td>
+                                <td data-label="ACCIONES">
+                                    <div class="btnDelete">
+                                    <button type="submit" ><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </form>
+                            <% } %>
+                    </tbody>
                 </table>
             </div>
 
-            <template id="template__tasks">
-                <tr>
-                    <th scope="row">id</th>
-                    <td>NOMBRE DE LA TAREA</td>
-                    <td>FECHA</td>
-                    <td>PRIORIDAD</td>
-                    <td>DESCRIPCIÓN</td>
-                    <td>
-                        <button class="btnEdit">Editar</button>
-                        <button class="btnDelete">Borrar</button>
-                    </td>
-                </tr>
-            </template>
+ 
         </div>
-        <script>
+        <script> 
+            const product = tasks.find((product) => product.id == 1);
+            console.log(product)
+            const taskInput = document.querySelector('#name_task');
+            const dateInput = document.querySelector('#date');
+            const priorityInput = document.querySelector('#priority');
+            const descriptionInput = document.querySelector('#description');
+            const item = document.getElementById('btnEdit')
+            const templateCard = document.getElementById('template__tasks')
 
-        const items = document.getElementById('items')
-        const tasks = document.getElementById('form__tasks')
-        const templateTask = document.getElementById('template__tasks').content
-        const taskInput = document.querySelector('#name_task');
-        const dateInput = document.querySelector('#date');
-        const priorityInput = document.querySelector('#priority');
-        const descriptionInput = document.querySelector('#description');
-        const btnAdd = document.querySelector('#btnAdd');
-        const fragment = document.createDocumentFragment()
-        let listTask = {};
-        let editing = 0;
-        
-        tasks.addEventListener('submit', (e) => { 
-            e.preventDefault()           
-            if(taskInput.value === '' || dateInput === '' || priorityInput === '' || descriptionInput === ''){
-            alert('Todos los campos son obligatorios');
-            return;
+            console.log(templateCard)
+
+   
+
+            const pintarCards = data => {
+                data.forEach(item => {
+                    templateCard.querySelector('h5').textContent = item.title
+                    templateCard.querySelector('p').textContent = item.precio
+                    templateCard.querySelector('button').dataset.id = item.id
+                    const clone = templateCard.cloneNode(true)
+                    fragment.appendChild(clone)
+                })
+                cards.appendChild(fragment)
             }
-
-            if(editing){
-                editTask()
-                editing = false;                
-            } else {
-                addTask(e)
-            }
-        });
-
-        items.addEventListener('click', (e) => {
-            loadTask(e)
-        })        
-        
-        const addTask = e => {
 
             
-            if (e.target.classList.contains('form__inputs')) {
-                // console.log(e.target.dataset.id)
-                // console.log(e.target.parentElement)
-                setTask(e.target.parentElement)
-            }
-            e.stopPropagation();
-        }
 
-        const setTask = item => {
-            const element = {
-                name: item.querySelector('#name_task').value,
-                date: item.querySelector('#date').value,
-                priority: item.querySelector('#priority').value,
-                description: item.querySelector('#description').value,
-                id: Date.now()
-            }
-
-            listTask[element.id] = { ...element }
-
-            displayTask();
-        }
-
-        const displayTask = () => {
             
-            items.innerHTML = ''
-            console.log(listTask)
-            Object.values(listTask).forEach(element => {
-                templateTask.querySelector('th').textContent = element.id
-                templateTask.querySelectorAll('td')[0].textContent = element.name
-                templateTask.querySelectorAll('td')[1].textContent = element.date
-                templateTask.querySelectorAll('td')[2].textContent = element.priority
-                templateTask.querySelectorAll('td')[3].textContent = element.description
-                
-                //botones
-                templateTask.querySelector('.btnEdit').dataset.id = element.id
-                templateTask.querySelector('.btnDelete').dataset.id = element.id
-
-                const clone = templateTask.cloneNode(true)
-                fragment.appendChild(clone)
-            })
-            items.appendChild(fragment)
-        }
-
-        const loadTask = e => {
-
-            const taskAdd = listTask[e.target.dataset.id]
-            taskInput.value = taskAdd.name
-            dateInput.value = taskAdd.date
-            priorityInput.value = taskAdd.priority
-            descriptionInput.value = taskAdd.description
-
-            listTask.id = taskAdd.id
-
-            tasks.querySelector('button[type="submit"]').textContent = "Actualizar"
-
-            editing = true
-        }
-
-        const  editTask = () => {
-
-            listTask.name = taskInput.value
-            listTask.date = dateInput.value
-            listTask.priority = priorityInput.value
-            listTask.description = descriptionInput.value
-
-            const element = {
-                name: listTask.name,
-                date: listTask.date,
-                priority: listTask.priority,
-                description: listTask.description,
-                id: listTask.id
-            }            
-                    listTask[element.id] = {...element}               
-            
-
-            displayTask()
-
-            tasks.querySelector('button[type="submit"]').textContent = "Agregar"
-
-            editing = false
-
-        }
-
-    </script>
+        </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 const express = require("express");
+const methodOverride =  require('method-override');
 const path = require("path");
 
 
@@ -7,6 +8,9 @@ const port = process.env.PORT || 3000;
 
 // ******Static files******
 app.use(express.static(path.join(__dirname, "../", "public")));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(methodOverride('_method'));
 
 
 // ******Settings******
